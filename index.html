@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bảo hiểm Ô tô 24H</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#002c5f; --navy-2:#0b0b0d; --accent:#c8102e; --accent-2:#fdecee;
+    --ink:#1b2430; --muted:#5d6b7a; --line:#e3e8ee; --bg:#f6f8fb; --white:#fff;
+    --warn:#b45309;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--ink);background:var(--white);line-height:1.6}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.97);backdrop-filter:blur(6px);border-bottom:3px solid var(--accent)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .brand-mark{width:40px;height:40px;border-radius:10px;background:var(--accent);display:grid;place-items:center}
+  .brand-name{font-size:15px;font-weight:800;color:var(--navy);line-height:1.15}
+  .brand-name small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+  .menu{display:flex;gap:26px;font-size:15px;font-weight:500}
+  .menu a{text-decoration:none;color:var(--muted)}
+  .menu a:hover{color:var(--navy)}
+  .btn{white-space:nowrap;display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:inherit;font-weight:600;border-radius:10px;padding:12px 20px;text-decoration:none;transition:.15s}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:#a00d25}
+  .btn-dark{background:var(--navy);color:#fff}
+  .btn-dark:hover{background:var(--navy-2)}
+  .btn-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--navy)}
+  @media(max-width:1020px){.menu{display:none}}
+  @media(max-width:560px){.brand-name small{display:none}.nav .btn{padding:10px 12px;font-size:14px}}
+
+  /* Hero */
+  .hero{background:linear-gradient(135deg,var(--navy) 0%,#001a3a 55%,var(--navy-2) 100%);color:#fff;padding:72px 0 88px;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:rgba(200,16,46,.16)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;position:relative;z-index:1}
+  .tag{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:6px 12px;border-radius:999px;font-size:13px;margin-bottom:18px}
+  .hero h1,.sec-head h2,.contact-info h3{font-family:"Playfair Display",Georgia,serif}
+  .hero h1{font-size:44px;line-height:1.15;font-weight:800;margin-bottom:16px}
+  .hero h1 span{color:#ff6b7d}
+  .hero p.lead{font-size:18px;color:#cfdbe8;margin-bottom:28px;max-width:540px}
+  .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+  .hero .btn-ghost{color:#fff;border-color:rgba(255,255,255,.6)}
+  .hero-points{display:flex;gap:22px;margin-top:30px;flex-wrap:wrap;font-size:14px;color:#cfdbe8}
+  .hero-points div{display:flex;align-items:center;gap:8px}
+  .hero-card{background:#fff;color:var(--ink);border-radius:18px;padding:26px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+  .hero-card h3{font-size:18px;margin-bottom:4px;color:var(--navy)}
+  .hero-card .sub{font-size:14px;color:var(--muted);margin-bottom:16px}
+  .contact-line{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+  .contact-line .ic{width:38px;height:38px;border-radius:10px;background:var(--accent-2);display:grid;place-items:center;flex-shrink:0}
+  .contact-line b{white-space:nowrap;display:block;font-size:17px;color:var(--navy)}
+  .contact-line small{color:var(--muted);font-size:13px}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr}.hero h1{font-size:34px}}
+
+  /* Sections */
+  section{padding:80px 0}
+  .alt{background:var(--bg)}
+  .sec-head{text-align:center;max-width:680px;margin:0 auto 44px}
+  .eyebrow{color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+  .sec-head h2{font-size:32px;color:var(--navy);margin:8px 0 10px;line-height:1.25}
+  .sec-head p{color:var(--muted)}
+
+  /* Coverage */
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  @media(max-width:960px){.grid-3,.grid-4{grid-template-columns:1fr 1fr}}
+  @media(max-width:600px){.grid-3,.grid-4{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px}
+  .card .ic{width:46px;height:46px;border-radius:12px;background:var(--accent-2);display:grid;place-items:center;margin-bottom:14px}
+  .card h4{font-size:17px;color:var(--navy);margin-bottom:6px}
+  .card p{font-size:14.5px;color:var(--muted)}
+
+  /* Calculator */
+  .calc{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start}
+  @media(max-width:860px){.calc{grid-template-columns:1fr}}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px}
+  label.f{display:block;font-weight:600;font-size:14px;margin:0 0 6px;color:var(--navy)}
+  .field{margin-bottom:18px}
+  input[type=text],input[type=tel],select,textarea{width:100%;font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:520px){.row2{grid-template-columns:1fr}}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;margin-bottom:10px;cursor:pointer}
+  .opt:hover{border-color:#f5c2c9}
+  .opt input{margin-top:4px;accent-color:var(--accent);width:18px;height:18px}
+  .opt b{display:block;font-size:14.5px}
+  .opt small{color:var(--muted);font-size:13px}
+  .opt .rate{margin-left:auto;font-size:13px;color:var(--accent);font-weight:700;white-space:nowrap}
+  .result{background:var(--navy);color:#fff;border-radius:18px;padding:28px;position:sticky;top:90px}
+  .result .lbl{color:#9fb6cc;font-size:14px}
+  .result .big{font-size:38px;font-weight:800;margin:4px 0 4px;color:#ff6b7d}
+  .result .rate-line{font-size:14px;color:#cfdbe8;margin-bottom:18px}
+  .breakdown{border-top:1px solid rgba(255,255,255,.15);padding-top:14px;margin-bottom:18px;font-size:14px}
+  .breakdown div{display:flex;justify-content:space-between;padding:4px 0;color:#cfdbe8}
+  .breakdown div b{color:#fff;font-weight:600}
+  .note{font-size:12.5px;color:#9fb6cc;margin-top:14px}
+  .err{color:#fca5a5;font-size:13px;margin-top:6px;display:none}
+
+  /* Packages */
+  .pkg{position:relative;display:flex;flex-direction:column}
+  .pkg.hot{border:2px solid var(--accent)}
+  .pkg .badge{position:absolute;top:-12px;left:24px;background:var(--accent);color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px}
+  .pkg h4{font-size:20px}
+  .pkg .for{font-size:14px;color:var(--muted);margin-bottom:14px}
+  .pkg ul{list-style:none;margin-bottom:20px;flex:1}
+  .pkg li{display:flex;gap:10px;padding:6px 0;font-size:14.5px;border-bottom:1px dashed var(--line)}
+  .pkg li:last-child{border:0}
+  .pkg li.no{color:#a0abb7}
+  .chk{color:var(--accent);font-weight:800}
+  .x{color:#c3cbd4;font-weight:800}
+
+  /* Steps */
+  .step{text-align:center}
+  .step .num{width:52px;height:52px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:20px;display:grid;place-items:center;margin:0 auto 14px}
+  .step h4{color:var(--navy);margin-bottom:6px}
+  .step p{color:var(--muted);font-size:14.5px}
+
+  /* Docs */
+  .docs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:760px){.docs{grid-template-columns:1fr}}
+  .docs ul{list-style:none}
+  .docs li{padding:8px 0 8px 28px;position:relative;font-size:15px;border-bottom:1px solid var(--line)}
+  .docs li:last-child{border:0}
+  .docs li::before{content:"✓";position:absolute;left:4px;color:var(--accent);font-weight:800}
+
+  /* FAQ */
+  .faq{max-width:820px;margin:0 auto}
+  details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:12px}
+  summary{cursor:pointer;font-weight:600;color:var(--navy);list-style:none;display:flex;justify-content:space-between;gap:16px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:22px;line-height:1;color:var(--accent)}
+  details[open] summary::after{content:"–"}
+  details p{margin-top:10px;color:var(--muted);font-size:15px}
+
+  /* Contact */
+  .contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px}
+  @media(max-width:860px){.contact{grid-template-columns:1fr}}
+  .contact-info{background:var(--navy);color:#fff;border-radius:18px;padding:32px}
+  .contact-info h3{font-size:24px;margin-bottom:8px}
+  .contact-info p{color:#cfdbe8;margin-bottom:22px}
+  .ci{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+  .ci .ic{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.1);display:grid;place-items:center;flex-shrink:0}
+  .ci small{display:block;color:#9fb6cc;font-size:13px}
+  .ci b{font-size:18px;white-space:nowrap}
+  .ci a{text-decoration:none}
+  .ok-box{display:none;background:var(--accent-2);border:1px solid #f5c2c9;border-radius:12px;padding:16px;margin-top:14px;font-size:14.5px}
+  .ok-box pre{white-space:pre-wrap;font-family:inherit;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;margin:10px 0}
+
+  /* Gallery */
+  .cars{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  @media(max-width:960px){.cars{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.cars{grid-template-columns:1fr}}
+  .car{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.2s}
+  .car:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,44,95,.12)}
+  .car .pic{aspect-ratio:16/10;background:radial-gradient(ellipse at 50% 85%,#dfe6ef 0%,#f4f6f9 55%,#fff 100%);display:grid;place-items:center;position:relative;overflow:hidden}
+  .car .pic svg{width:92%;height:auto}
+  .car .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .car .body{padding:16px 18px 18px}
+  .car h4{color:var(--navy);font-size:17px}
+  .car p{color:var(--muted);font-size:14px}
+  .car .tagline{display:inline-block;margin-top:8px;font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-2);padding:3px 10px;border-radius:999px}
+  .hero-car{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:min(900px,95%);opacity:.06;pointer-events:none;z-index:0}
+
+  footer{background:#0b0b0d;color:#9fb6cc;padding:28px 0;font-size:13.5px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  /* Floating call */
+  .float{position:fixed;right:18px;bottom:18px;z-index:30;display:flex;flex-direction:column;gap:10px}
+  .float a{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;box-shadow:0 8px 20px rgba(0,0,0,.2);text-decoration:none;color:#fff;font-weight:800;font-size:13px}
+  .float .call{background:#e11d48;animation:pulse 2s infinite}
+  .float .zalo{background:#0068ff}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(225,29,72,.5)}70%{box-shadow:0 0 0 14px rgba(225,29,72,0)}100%{box-shadow:0 0 0 0 rgba(225,29,72,0)}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <div class="brand-mark">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+      </div>
+      <div class="brand-name">Bảo hiểm Ô tô 24H<small>Chuyên viên tư vấn bảo hiểm xe</small></div>
+    </a>
+    <nav class="menu">
+      <a href="#quyen-loi">Quyền lợi</a>
+      <a href="#dong-xe">Dòng xe</a>
+      <a href="#goi">Gói bảo hiểm</a>
+      <a href="#quy-trinh">Quy trình</a>
+      <a href="#hoi-dap">Hỏi đáp</a>
+    </nav>
+    <a class="btn btn-primary" href="tel:0976227667">📞 0976 227 667</a>
+  </div>
+</header>
+
+<div class="hero" id="top">
+  <div class="hero-car" id="heroCar"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag">Bảo hiểm vật chất (thân vỏ) xe ô tô</span>
+      <h1>An tâm mỗi hành trình,<br><span>xe được bảo vệ trọn vẹn</span></h1>
+      <p class="lead">Tư vấn tận tâm, báo giá minh bạch từ các nhà bảo hiểm uy tín. Hỗ trợ trọn quá trình từ chọn gói, giám định đến làm hồ sơ bồi thường.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="tel:0976227667">📞 Gọi ngay 0976 227 667</a>
+        <a class="btn btn-ghost" href="#lien-he">Nhận tư vấn miễn phí</a>
+      </div>
+      <div class="hero-points">
+        <div>✔ Báo giá trong 5 phút</div>
+        <div>✔ Hỗ trợ bồi thường tận nơi</div>
+        <div>✔ Sửa chữa tại xưởng chính hãng</div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>Liên hệ tư vấn trực tiếp</h3>
+      <div class="sub">Gọi hoặc nhắn Zalo, chị Hằng hỗ trợ cả ngoài giờ</div>
+      <div class="contact-line">
+        <div class="ic">📞</div>
+        <div><small>Hotline – Chị Hằng</small><b><a href="tel:0976227667" style="text-decoration:none">0976 227 667</a></b></div>
+      </div>
+      <div class="contact-line">
+        <div class="ic">💬</div>
+        <div><small>Zalo</small><b><a href="https://zalo.me/0976227667" style="text-decoration:none">0976 227 667</a></b></div>
+      </div>
+      <a class="btn btn-dark" href="#lien-he" style="width:100%;justify-content:center;margin-top:6px">Để lại số, tôi gọi lại</a>
+    </div>
+  </div>
+</div>
+
+<section id="quyen-loi">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Phạm vi bảo hiểm</div>
+      <h2>Bảo hiểm thân vỏ bảo vệ xe bạn trước những rủi ro nào?</h2>
+      <p>Bồi thường chi phí sửa chữa, thay mới phụ tùng khi xe bị thiệt hại do tai nạn hoặc rủi ro bất ngờ.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card"><div class="ic">🚗</div><h4>Va chạm, đâm đụng</h4><p>Đâm va với xe khác, vật thể cố định, lật đổ, rơi xuống vực.</p></div>
+      <div class="card"><div class="ic">🌧️</div><h4>Thiên tai, ngập nước</h4><p>Bão, lũ, sét đánh, mưa đá, sạt lở. Bổ sung gói thủy kích để bảo vệ động cơ.</p></div>
+      <div class="card"><div class="ic">🔥</div><h4>Cháy, nổ</h4><p>Thiệt hại do hỏa hoạn, cháy nổ từ bên ngoài hoặc sự cố bất ngờ.</p></div>
+      <div class="card"><div class="ic">🔒</div><h4>Mất cắp toàn bộ xe</h4><p>Bồi thường khi xe bị trộm cắp, cướp toàn bộ.</p></div>
+      <div class="card"><div class="ic">🔩</div><h4>Mất cắp bộ phận</h4><p>Gương, đèn, logo, lốp… bị tháo trộm (điều khoản bổ sung).</p></div>
+      <div class="card"><div class="ic">🛠️</div><h4>Cứu hộ, kéo xe</h4><p>Hỗ trợ chi phí cứu hộ, cẩu kéo xe về xưởng sửa chữa gần nhất.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="dong-xe">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Dòng xe</div>
+      <h2>Bảo vệ trọn vẹn cho xe sang của bạn</h2>
+      <p>Tư vấn gói bảo hiểm riêng cho từng dòng xe, ưu tiên sửa chữa tại xưởng chính hãng với phụ tùng chính hãng.</p>
+    </div>
+    <div class="cars">
+      <div class="car"><div class="pic"><div class="carsvg" data-shape="suv" data-color="#0b0b0d"></div></div><div class="body"><h4>SUV 7 chỗ hạng sang</h4><p>Xe gia đình cao cấp</p><span class="tagline">Gợi ý: Gói Toàn diện</span></div></div>
+      <div class="car"><div class="pic"><div class="carsvg" data-shape="suv" data-color="#002c5f"></div></div><div class="body"><h4>SUV cỡ trung</h4><p>Xe gia đình cao cấp</p><span class="tagline">Gợi ý: Gói Toàn diện</span></div></div>
+      <div class="car"><div class="pic"><div class="carsvg" data-shape="mpv" data-color="#8a8f98"></div></div><div class="body"><h4>MPV gia đình</h4><p>Xe gia đình cao cấp</p><span class="tagline">Gợi ý: Gói Tiêu chuẩn</span></div></div>
+      <div class="car"><div class="pic"><div class="carsvg" data-shape="suv" data-color="#c8102e"></div></div><div class="body"><h4>SUV đô thị</h4><p>Xe gia đình cao cấp</p><span class="tagline">Gợi ý: Gói Tiêu chuẩn</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="goi">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Gói bảo hiểm</div>
+      <h2>Chọn gói phù hợp với nhu cầu</h2>
+      <p>Ba gói được khách hàng chọn nhiều nhất. Có thể tùy chỉnh thêm quyền lợi theo yêu cầu.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card pkg">
+        <h4 style="color:var(--navy)">Cơ bản</h4>
+        <div class="for">Xe đi phố, ít đi xa, cần chi phí tối ưu</div>
+        <ul>
+          <li><span class="chk">✓</span>Va chạm, lật đổ, cháy nổ</li>
+          <li><span class="chk">✓</span>Thiên tai, mất cắp toàn bộ xe</li>
+          <li><span class="chk">✓</span>Cứu hộ kéo xe</li>
+          <li class="no"><span class="x">✕</span>Thủy kích</li>
+          <li class="no"><span class="x">✕</span>Sửa chữa chính hãng</li>
+          <li class="no"><span class="x">✕</span>Không khấu hao phụ tùng</li>
+        </ul>
+        <a class="btn btn-ghost pick" data-pkg="Cơ bản" href="#lien-he" style="justify-content:center">Tư vấn gói này</a>
+      </div>
+      <div class="card pkg hot">
+        <span class="badge">Được chọn nhiều nhất</span>
+        <h4 style="color:var(--navy)">Tiêu chuẩn</h4>
+        <div class="for">Xe gia đình, phù hợp mùa mưa bão</div>
+        <ul>
+          <li><span class="chk">✓</span>Toàn bộ quyền lợi gói Cơ bản</li>
+          <li><span class="chk">✓</span>Thủy kích</li>
+          <li><span class="chk">✓</span>Sửa chữa tại xưởng chính hãng</li>
+          <li><span class="chk">✓</span>Mất cắp bộ phận</li>
+          <li class="no"><span class="x">✕</span>Không khấu hao phụ tùng</li>
+        </ul>
+        <a class="btn btn-primary pick" data-pkg="Tiêu chuẩn" href="#lien-he" style="justify-content:center">Tư vấn gói này</a>
+      </div>
+      <div class="card pkg">
+        <h4 style="color:var(--navy)">Toàn diện</h4>
+        <div class="for">Xe mới, xe giá trị cao, muốn bảo vệ tối đa</div>
+        <ul>
+          <li><span class="chk">✓</span>Toàn bộ quyền lợi gói Tiêu chuẩn</li>
+          <li><span class="chk">✓</span>Không khấu hao phụ tùng thay mới</li>
+          <li><span class="chk">✓</span>Hỗ trợ chi phí thuê xe khi sửa chữa*</li>
+          <li><span class="chk">✓</span>Ưu tiên giám định, bồi thường nhanh</li>
+        </ul>
+        <a class="btn btn-ghost pick" data-pkg="Toàn diện" href="#lien-he" style="justify-content:center">Tư vấn gói này</a>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--muted);font-size:13px;margin-top:16px">* Tùy điều kiện của từng nhà bảo hiểm.</p>
+  </div>
+</section>
+
+<section class="alt" id="quy-trinh">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Quy trình</div>
+      <h2>Mua bảo hiểm chỉ với 4 bước</h2>
+    </div>
+    <div class="grid-4">
+      <div class="step"><div class="num">1</div><h4>Gửi thông tin xe</h4><p>Gọi hotline hoặc để lại số điện thoại, dòng xe, năm sản xuất.</p></div>
+      <div class="step"><div class="num">2</div><h4>Nhận báo giá</h4><p>So sánh phí và quyền lợi từ nhiều nhà bảo hiểm, chọn gói phù hợp.</p></div>
+      <div class="step"><div class="num">3</div><h4>Giám định xe</h4><p>Chụp ảnh xe theo hướng dẫn hoặc giám định trực tiếp tại đại lý.</p></div>
+      <div class="step"><div class="num">4</div><h4>Ký hợp đồng & thanh toán</h4><p>Thanh toán theo hợp đồng/hóa đơn chính thức, nhận giấy chứng nhận bảo hiểm.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Hồ sơ</div>
+      <h2>Chuẩn bị giấy tờ</h2>
+    </div>
+    <div class="docs">
+      <div class="card">
+        <h4 style="color:var(--navy);margin-bottom:8px">Khi mua bảo hiểm</h4>
+        <ul>
+          <li>Giấy đăng ký xe (cà vẹt) hoặc hóa đơn mua xe với xe mới</li>
+          <li>Giấy chứng nhận đăng kiểm còn hiệu lực</li>
+          <li>Ảnh chụp xe 4 góc, mặt đồng hồ km, số khung</li>
+          <li>Thông tin chủ xe: họ tên, số điện thoại, địa chỉ</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4 style="color:var(--navy);margin-bottom:8px">Khi yêu cầu bồi thường</h4>
+        <ul>
+          <li>Giữ nguyên hiện trường, báo ngay hotline nhà bảo hiểm</li>
+          <li>Giấy chứng nhận bảo hiểm, đăng ký xe, đăng kiểm</li>
+          <li>Giấy phép lái xe của người điều khiển</li>
+          <li>Ảnh hiện trường, biên bản của cơ quan chức năng (nếu có)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="hoi-dap">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Hỏi đáp</div>
+      <h2>Câu hỏi thường gặp</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>Bảo hiểm thân vỏ khác gì bảo hiểm bắt buộc (TNDS)?</summary><p>Bảo hiểm TNDS bắt buộc chỉ bồi thường thiệt hại cho bên thứ ba. Bảo hiểm thân vỏ (vật chất xe) là bảo hiểm tự nguyện, bồi thường thiệt hại cho chính chiếc xe của bạn.</p></details>
+      <details><summary>Phí bảo hiểm thân vỏ được tính như thế nào?</summary><p>Phí = Giá trị xe × Tỷ lệ phí. Tỷ lệ phí phụ thuộc tuổi xe, mục đích sử dụng và các quyền lợi bổ sung bạn chọn (thủy kích, mất cắp bộ phận, không khấu hao…).</p></details>
+      <details><summary>Xe bao nhiêu năm tuổi thì còn mua được?</summary><p>Phần lớn nhà bảo hiểm nhận xe dưới 10–15 năm tuổi. Quyền lợi không khấu hao thường chỉ áp dụng cho xe dưới 3–6 năm tuổi.</p></details>
+      <details><summary>Bao lâu thì có hiệu lực?</summary><p>Hợp đồng có hiệu lực từ thời điểm ghi trên giấy chứng nhận, sau khi xe được giám định và hoàn tất thanh toán phí.</p></details>
+      <details><summary>Thanh toán phí như thế nào?</summary><p>Bạn thanh toán theo hợp đồng hoặc hóa đơn chính thức khi chốt đơn. Luôn kiểm tra thông tin người thụ hưởng ghi trên hợp đồng trước khi chuyển khoản.</p></details>
+      <details><summary>Có được trả góp phí bảo hiểm không?</summary><p>Một số nhà bảo hiểm hỗ trợ trả góp qua thẻ tín dụng. Liên hệ chị Hằng để được tư vấn chương trình hiện có.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="lien-he">
+  <div class="wrap contact">
+    <div class="contact-info">
+      <h3>Nhận tư vấn miễn phí</h3>
+      <p>Để lại thông tin, chị Hằng sẽ gọi lại báo giá chi tiết và tư vấn gói phù hợp nhất cho xe của bạn.</p>
+      <div class="ci"><div class="ic">👩‍💼</div><div><small>Chuyên viên tư vấn</small><b>Chị Hằng</b></div></div>
+      <div class="ci"><div class="ic">📞</div><div><small>Hotline</small><b><a href="tel:0976227667">0976 227 667</a></b></div></div>
+      <div class="ci"><div class="ic">💬</div><div><small>Zalo</small><b><a href="https://zalo.me/0976227667">0976 227 667</a></b></div></div>
+      <div class="ci"><div class="ic">🕘</div><div><small>Thời gian hỗ trợ</small><b>8:00 – 20:00, cả cuối tuần</b></div></div>
+    </div>
+    <div class="panel">
+      <form id="leadForm" novalidate>
+        <div class="row2">
+          <div class="field"><label class="f" for="name">Họ và tên *</label><input type="text" id="name" placeholder="Nguyễn Văn A"></div>
+          <div class="field"><label class="f" for="phone">Số điện thoại *</label><input type="tel" id="phone" placeholder="09xx xxx xxx"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label class="f" for="model">Dòng xe</label><input type="text" id="model" placeholder="VD: Accent 2024"></div>
+          <div class="field"><label class="f" for="pkg">Gói quan tâm</label>
+            <select id="pkg"><option>Chưa chọn</option><option>Cơ bản</option><option>Tiêu chuẩn</option><option>Toàn diện</option></select>
+          </div>
+        </div>
+        <div class="field"><label class="f" for="msg">Ghi chú</label><textarea id="msg" rows="3" placeholder="Thời gian thuận tiện để gọi, yêu cầu thêm…"></textarea></div>
+        <div class="err" id="formErr">Vui lòng nhập họ tên và số điện thoại hợp lệ.</div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px">Gửi yêu cầu tư vấn</button>
+        <div class="ok-box" id="okBox">
+          <b>Thông tin của bạn đã sẵn sàng.</b> Hãy sao chép và gửi qua Zalo <b>0976 227 667</b> hoặc gọi trực tiếp để chị Hằng hỗ trợ nhanh nhất:
+          <pre id="summary"></pre>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button type="button" class="btn btn-dark" id="copyBtn">Sao chép nội dung</button>
+            <a class="btn btn-ghost" href="https://zalo.me/0976227667">Mở Zalo</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 Bảo hiểm Ô tô 24H · Hotline 0976 227 667</div>
+    <div>Phí trên trang chỉ mang tính tham khảo. Quyền lợi theo quy tắc bảo hiểm của từng nhà bảo hiểm.</div>
+  </div>
+</footer>
+
+<div class="float">
+  <a class="zalo" href="https://zalo.me/0976227667" title="Zalo">Zalo</a>
+  <a class="call" href="tel:0976227667" title="Gọi 0976 227 667">📞</a>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+
+  // Car illustrations
+  function carSVG(shape,color,id){
+    const roof = shape==='mpv'
+      ? 'M18 104 L18 78 Q20 66 38 62 L70 56 L98 26 Q104 20 116 20 L262 20 Q276 20 284 30 L296 56 Q306 62 306 78 L306 104 Z'
+      : 'M18 104 L18 80 Q20 68 40 64 L84 58 L116 30 Q123 24 136 24 L226 24 Q240 24 250 33 L278 58 L292 62 Q306 66 306 80 L306 104 Z';
+    const win = shape==='mpv'
+      ? '<path d="M104 30 L80 56 L160 56 L160 28 L114 28 Z" fill="#1d2633"/><path d="M168 28 L168 56 L232 56 L232 28 Z" fill="#1d2633"/><path d="M240 28 L240 56 L288 56 L278 34 Q274 28 266 28 Z" fill="#1d2633"/>'
+      : '<path d="M122 34 L104 58 L178 58 L178 32 L132 32 Q126 32 122 34 Z" fill="#1d2633"/><path d="M186 32 L186 58 L266 58 L244 37 Q238 32 228 32 Z" fill="#1d2633"/>';
+    const wheel = x => `<circle cx="${x}" cy="104" r="23" fill="#111"/><circle cx="${x}" cy="104" r="14" fill="#c9ced6"/><circle cx="${x}" cy="104" r="5" fill="#6b7280"/>${[0,72,144,216,288].map(a=>`<line x1="${x}" y1="104" x2="${x+12*Math.cos(a*Math.PI/180)}" y2="${104+12*Math.sin(a*Math.PI/180)}" stroke="#8a929e" stroke-width="2.5"/>`).join('')}`;
+    return `<svg viewBox="0 0 324 140" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".85"/><stop offset=".55" stop-color="${color}"/><stop offset="1" stop-color="#000" stop-opacity=".9"/></linearGradient></defs>
+      <ellipse cx="162" cy="128" rx="150" ry="8" fill="#000" opacity=".18"/>
+      <path d="${roof}" fill="url(#g${id})"/>
+      ${win}
+      <path d="M30 82 L296 82" stroke="#fff" stroke-opacity=".25" stroke-width="1.5"/>
+      <rect x="290" y="70" width="14" height="5" rx="2" fill="#f5f7fa"/>
+      <rect x="18" y="72" width="10" height="5" rx="2" fill="#e11d48"/>
+      <path d="M196 62 L196 96" stroke="#000" stroke-opacity=".25"/>
+      ${wheel(84)}${wheel(246)}
+    </svg>`;
+  }
+  document.querySelectorAll('.carsvg').forEach((el,i)=>{ el.innerHTML = carSVG(el.dataset.shape, el.dataset.color, i); });
+  // Nếu có ảnh thật trong thư mục "anh" cạnh file HTML thì dùng ảnh thật
+  document.querySelectorAll('.pic[data-img]').forEach(pic=>{
+    const im = new Image();
+    im.onload = ()=>{ im.alt=''; pic.appendChild(im); };
+    im.src = pic.dataset.img;
+  });
+  const hc=document.getElementById('heroCar'); if(hc) hc.innerHTML=carSVG('suv','#ffffff','h');
+
+  document.querySelectorAll('.pick').forEach(a => a.addEventListener('click', () => { $('pkg').value = a.dataset.pkg; }));
+
+  $('leadForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = $('name').value.trim();
+    const phone = $('phone').value.replace(/\s/g,'');
+    if(!name || !/^0\d{9}$/.test(phone)){ $('formErr').style.display='block'; $('okBox').style.display='none'; return; }
+    $('formErr').style.display='none';
+    const lines = [
+      'Yêu cầu tư vấn bảo hiểm ô tô',
+      'Họ tên: ' + name,
+      'SĐT: ' + phone,
+      'Dòng xe: ' + ($('model').value.trim() || '—'),
+      'Gói quan tâm: ' + $('pkg').value,
+      $('msg').value.trim() ? 'Ghi chú: ' + $('msg').value.trim() : ''
+    ].filter(Boolean);
+    $('summary').textContent = lines.join('\n');
+    $('okBox').style.display = 'block';
+  });
+
+  $('copyBtn').addEventListener('click', async () => {
+    try{ await navigator.clipboard.writeText($('summary').textContent); $('copyBtn').textContent = 'Đã sao chép ✓'; }
+    catch(err){ $('copyBtn').textContent = 'Hãy bôi đen để sao chép'; }
+    setTimeout(()=> $('copyBtn').textContent = 'Sao chép nội dung', 2500);
+  });
+</script>
+</body>
+</html>
